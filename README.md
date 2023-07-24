@@ -34,4 +34,5 @@ GET	      /docs/	                              View API documentation	        Al
 - install Python 3.6 or above.
 - install postgresql.
 - set up postgresql and config url in the database.py file.
+- create database by running init_db.py
 - run project using uvicorn.
