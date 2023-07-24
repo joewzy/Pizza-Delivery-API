@@ -27,3 +27,11 @@ GET	       /orders/user/order/{order_id}/	      Get user's specific order	      
 
 GET	      /docs/	                              View API documentation	        All users
 
+
+
+### To run 
+- Set up a virtual environment (venv).
+- install Python 3.6 or above.
+- install postgresql.
+- set up postgresql and config url in the database.py file.
+- run project using uvicorn.
