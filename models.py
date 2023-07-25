@@ -4,7 +4,9 @@ from sqlalchemy.orm import relationship
 from sqlalchemy_utils.types import ChoiceType
 
 # defining our user model/table in db which inherits from Base.
-
+# sqlalchemy does not modified / make change to columns if table already exists
+# table is left untouched if it exists thus no new chages are made
+# alembic can be used for these kind of changes
 
 class User(Base):
     __tablename__ = 'user'
@@ -12,11 +14,12 @@ class User(Base):
     username = Column(String(30), unique=True)
     email = Column(String(80), unique=True)
     password = Column(Text, nullable=True)
-    is_staff = Column(Boolean, default=False)
-    is_active = Column(Boolean, default=False)
+    is_staff = Column(Boolean, server_default="False")
+    is_active = Column(Boolean, server_default="False")
     orders = relationship('Order', back_populates='user')
     # Order table is related to user table --> using the relationship()
-
+    # server_default requires a str 
+    # sets the column property to given string duting table creation
 
     def __repr__(self):
         return f"User {self.username}"
@@ -40,8 +43,8 @@ class Order(Base):
     __tablename__ = 'orders'
     id = Column(Integer,primary_key=True)
     quantity = Column(Integer, nullable=False)
-    order_status = Column(ChoiceType(choices=ORDER_STATUS), default='PENDING')
-    pizza_size = Column(ChoiceType(choices=PIZZA_SIZES), default='SMALL')
+    order_status = Column(ChoiceType(choices=ORDER_STATUS), server_default='PENDING')
+    pizza_size = Column(ChoiceType(choices=PIZZA_SIZES), server_default='SMALL')
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship('User',back_populates='orders')
 

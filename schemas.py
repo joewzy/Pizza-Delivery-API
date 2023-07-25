@@ -21,6 +21,7 @@ class SignUpModel(BaseModel):
                 "is_active": True
             }
         }
+    # orm_mode will tell the Pydantic model to read the data even if it is not a dict
 
 # class containing our secret key for JWT
 class Setting(BaseModel):
