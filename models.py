@@ -1,7 +1,9 @@
-from .database import Base
+from database import Base
 from sqlalchemy import Column, Integer, Boolean, Text, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils.types import ChoiceType
+from sqlalchemy.sql.expression import text
+from sqlalchemy.sql.sqltypes import TIMESTAMP
 
 # defining our user model/table in db which inherits from Base.
 # sqlalchemy does not modified / make change to columns if table already exists
@@ -17,6 +19,7 @@ class User(Base):
     is_staff = Column(Boolean, server_default="False")
     is_active = Column(Boolean, server_default="False")
     orders = relationship('Order', back_populates='user')
+    date_created = Column(TIMESTAMP(timezone=True),nullable= False, server_default=text('now()'))
     # Order table is related to user table --> using the relationship()
     # server_default requires a str 
     # sets the column property to given string duting table creation
@@ -47,6 +50,7 @@ class Order(Base):
     pizza_size = Column(ChoiceType(choices=PIZZA_SIZES), server_default='SMALL')
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship('User',back_populates='orders')
+    date_created =  Column(TIMESTAMP(timezone=True), nullable= False, server_default= text('now()'))
 
     def __repr__(self):
         return f"Order {self.id}"

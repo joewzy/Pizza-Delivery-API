@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from .auth_routes import auth_router
-from .order_routes import order_router
+from auth_routes import auth_router
+from order_routes import order_router
 from fastapi_jwt_auth import AuthJWT
-from .schemas import Setting
+from schemas import Setting
 
 
 app = FastAPI()

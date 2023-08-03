@@ -1,8 +1,8 @@
 from fastapi import APIRouter, status, Depends
 from fastapi.exceptions import HTTPException
-from .database import engine, Sessionlocal
-from .models import User
-from .schemas import SignUpModel, LoginModel
+from database import engine, Sessionlocal
+from models import User
+from schemas import SignUpModel, LoginModel
 from werkzeug.security import generate_password_hash, check_password_hash
 from fastapi_jwt_auth import AuthJWT
 from fastapi.encoders import jsonable_encoder
